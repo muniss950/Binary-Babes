@@ -13,7 +13,7 @@ def create_folder(folder_name):
     print(f"Folder '{folder_name}' created successfully.")
 
 def main(c_id):
-    total_pics = 1200
+    total_pics = 150
     hands = mp_hands.Hands(
         min_detection_confidence=0.5, min_tracking_confidence=0.5)
     hand_landmark_drawing_spec = mp_drawing.DrawingSpec(thickness=5, circle_radius=5)
