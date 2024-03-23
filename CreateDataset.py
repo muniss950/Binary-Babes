@@ -13,18 +13,17 @@ def create_folder(folder_name):
     print(f"Folder '{folder_name}' created successfully.")
 
 def main(c_id):
-    total_pics = 150
+    starting_pic_no = 1000  # Starting number for pictures
     hands = mp_hands.Hands(
         min_detection_confidence=0.5, min_tracking_confidence=0.5)
     hand_landmark_drawing_spec = mp_drawing.DrawingSpec(thickness=5, circle_radius=5)
     hand_connection_drawing_spec = mp_drawing.DrawingSpec(thickness=10, circle_radius=10)
+    
     cap = cv2.VideoCapture(0)  # Changed camera index to 0
     create_folder("chords/" + str(c_id))
-    pic_no = 0
-    flag_start_capturing = False
-    frames = 0
+    pic_no = starting_pic_no
 
-    while cap.isOpened():
+    while pic_no < starting_pic_no + 1000:  # Stop capturing after reaching 2000 images
         ret, image = cap.read()
         if not ret:
             print("Failed to capture frame.")
@@ -65,18 +64,13 @@ def main(c_id):
             cv2.putText(image, str(pic_no), (30, 400), cv2.FONT_HERSHEY_TRIPLEX, 1.5, (127, 127, 255))
             keypress = cv2.waitKey(1)
             if keypress == ord('c'):
-                if not flag_start_capturing:
-                    flag_start_capturing = True
-                else:
-                    flag_start_capturing = False
-                    frames = 0
-            if flag_start_capturing:
-                frames += 1
-            if pic_no == total_pics:
                 break
+
         cv2.imshow("Capturing gesture", image)
         cv2.imshow("Res", res)
 
+    cap.release()
+    cv2.destroyAllWindows()
 
 c_id = input("Enter chord: ")
 main(c_id)
