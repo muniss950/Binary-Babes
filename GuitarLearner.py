@@ -5,7 +5,7 @@ import numpy as np
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
-model = load_model('guitar_learner.h5')
+model = load_model('guitar_learner_old.h5')
 chord_dict = {0: 'A Major', 1: 'D Major', 2: 'E Minor', 3: 'C', 4: 'F', 5: 'G'}
 
 
